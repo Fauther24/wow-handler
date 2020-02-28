@@ -1,13 +1,13 @@
 <?php
 
 
-namespace App\Helpers;
+namespace App\Contract;
 
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-interface ExaminationHandler
+interface RequestHandler
 {
     public const STATUSES = [
         'OK'    => 0,

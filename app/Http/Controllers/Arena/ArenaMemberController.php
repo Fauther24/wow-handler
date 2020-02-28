@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Arena;
 
 
 
-use App\Helpers\ExaminationHandler;
+use App\Contract\RequestHandler;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ArenaMemberController extends Controller implements ExaminationHandler
+class ArenaMemberController extends Controller implements RequestHandler
 {
 
     /**
@@ -27,7 +27,7 @@ class ArenaMemberController extends Controller implements ExaminationHandler
     {
         if (!$request->has('type')) {
             return response()->json([
-                'status' => ExaminationHandler::STATUSES['ERROR'],
+                'status' => RequestHandler::STATUSES['ERROR'],
                 'message' => 'Type request is absent'
             ], 404);
         }
@@ -58,7 +58,7 @@ class ArenaMemberController extends Controller implements ExaminationHandler
      */
     public function dataTopMember() : object
     {
-        $data = DB::table('arena_team_member as member')
+        $data = $this->char->table('arena_team_member as member')
             ->select(
                 'member.*', 'team.name as team_name',
                 'char.name as player_name', 'char.class as player_class', 'char.race as player_race'
@@ -78,7 +78,7 @@ class ArenaMemberController extends Controller implements ExaminationHandler
      */
     public function dataTeamMember($option) : object
     {
-        $data = DB::table('arena_team as team')
+        $data = $this->char->table('arena_team as team')
             ->select('member.*', 'team.name as team_name',
                 'char.name as player_name', 'char.class as player_class', 'char.race as player_race'
             )
@@ -88,6 +88,6 @@ class ArenaMemberController extends Controller implements ExaminationHandler
             ->orderByDesc('member.personalRating')
             ->get();
 
-        return response()->json(['data' => $data]);
+        return response()->json(['payload' => $data]);
     }
 }

@@ -17,3 +17,9 @@ $router->group(['namespace' => 'Arena', 'prefix' => 'arena', 'as' => 'arena.'], 
     $router->post('team', ['as' => 'team', 'uses' => 'ArenaTeamController@handler']);
     $router->post('member', ['as' => 'member', 'uses' => 'ArenaMemberController@handler']);
 });
+
+/** Callback Arena Team handler */
+$router->group(['namespace' => 'Statistics', 'prefix' => 'statistics', 'as' => 'statistics.'], function() use ($router) {
+    $router->post('online', ['as' => 'online', 'uses' => 'OnlineWorldController@handler']);
+});
+
