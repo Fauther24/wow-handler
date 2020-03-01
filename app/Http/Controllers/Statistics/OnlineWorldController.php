@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Statistics;
 
 
 use App\Contract\RequestHandler;
-use App\Helpers\CharacterParsing;
+use App\Supports\CharacterParsing;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -19,10 +19,7 @@ class OnlineWorldController extends Controller implements RequestHandler
      */
     public function handler(Request $request)
     {
-        return $this->make(
-            $request->input('type'),
-            []
-        );
+        return $this->make([], []);
     }
 
     /**

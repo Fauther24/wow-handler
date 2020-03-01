@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Arena;
 use App\Contract\RequestHandler;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ArenaTeamController extends Controller implements RequestHandler
 {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Helpers;
+namespace App\Supports;
 
 
 use Illuminate\Support\Facades\DB;
