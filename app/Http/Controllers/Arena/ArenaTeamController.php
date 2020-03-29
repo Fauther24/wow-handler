@@ -14,7 +14,7 @@ class ArenaTeamController extends Controller implements RequestHandler
      * List type Arena
      * @var array
      */
-    protected $types = [2,3,5];
+    protected array $types = [2, 3, 5];
 
     /**
      * @inheritDoc
@@ -35,7 +35,10 @@ class ArenaTeamController extends Controller implements RequestHandler
             ], 404);
         }
 
-        return $this->make( $request->input('type'), [] );
+        return $this->make(
+            $request->input('type'),
+            []
+        );
     }
 
     /**
@@ -49,7 +52,7 @@ class ArenaTeamController extends Controller implements RequestHandler
             ->orderByDesc('rating')
             ->get();
 
-        return response()->json(['payload' => $data]);
+        return $this->givePayload('payload', $data);
     }
 
 }

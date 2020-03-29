@@ -7,11 +7,14 @@ namespace App\Http\Controllers\Arena;
 
 use App\Contract\RequestHandler;
 use App\Http\Controllers\Controller;
+use App\Supports\ResponseJson;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ArenaMemberController extends Controller implements RequestHandler
 {
+    use ResponseJson;
 
     /**
      * List type Arena
@@ -57,17 +60,19 @@ class ArenaMemberController extends Controller implements RequestHandler
      */
     public function dataTopMember() : object
     {
-        $data = $this->char->table('arena_team_member as member')
-            ->select(
-                'member.*', 'team.name as team_name',
-                'char.name as player_name', 'char.class as player_class', 'char.race as player_race'
-            )
-            ->join('arena_team as team', 'member.arenaTeamId', '=', 'team.ArenaTeamId')
-            ->join('characters as char', 'member.guid', '=', 'char.guid')
-            ->orderByDesc('member.personalRating')
-            ->get();
+        $data = Cache::remember('top_member_arena', 900, function () {
+            return $this->char->table('arena_team_member as member')
+                ->select(
+                    'member.*', 'team.name as team_name',
+                    'char.name as player_name', 'char.class as player_class', 'char.race as player_race'
+                )
+                ->join('arena_team as team', 'member.arenaTeamId', '=', 'team.ArenaTeamId')
+                ->join('characters as char', 'member.guid', '=', 'char.guid')
+                ->orderByDesc('member.personalRating')
+                ->get();
+        });
 
-        return response()->json(['data' => $data]);
+        return $this->givePayload('payload', $data);
     }
 
     /**
@@ -77,16 +82,18 @@ class ArenaMemberController extends Controller implements RequestHandler
      */
     public function dataTeamMember($option) : object
     {
-        $data = $this->char->table('arena_team as team')
-            ->select('member.*', 'team.name as team_name',
-                'char.name as player_name', 'char.class as player_class', 'char.race as player_race'
-            )
-            ->join('arena_team_member as member', 'team.arenaTeamId', '=', 'member.ArenaTeamId')
-            ->join('characters as char', 'member.guid', '=', 'char.guid')
-            ->where('member.arenaTeamId', '=', $option['arenaTeamId'])
-            ->orderByDesc('member.personalRating')
-            ->get();
+        $data = Cache::remember('top_team_arena', 900, function () use ($option) {
+            return $this->char->table('arena_team as team')
+                ->select('member.*', 'team.name as team_name',
+                    'char.name as player_name', 'char.class as player_class', 'char.race as player_race'
+                )
+                ->join('arena_team_member as member', 'team.arenaTeamId', '=', 'member.ArenaTeamId')
+                ->join('characters as char', 'member.guid', '=', 'char.guid')
+                ->where('member.arenaTeamId', '=', $option['arenaTeamId'])
+                ->orderByDesc('member.personalRating')
+                ->get();
+        });
 
-        return response()->json(['payload' => $data]);
+        return $this->givePayload('payload', $data);
     }
 }

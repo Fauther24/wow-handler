@@ -8,12 +8,12 @@ return [
 
         # World of WarCraft Client - Auth Base
         'auth' => [
-            'driver'    => env('DB_CONNECTION_AUTH'),
-            'host'      => env('DB_HOST_AUTH'),
-            'port'      => env('DB_PORT_AUTH'),
+            'driver'    => env('DB_CONNECTION_DRIVER'),
+            'host'      => env('DB_CONNECTION_HOST'),
+            'port'      => env('DB_PORT'),
             'database'  => env('DB_DATABASE_AUTH'),
-            'username'  => env('DB_USERNAME_AUTH'),
-            'password'  => env('DB_PASSWORD_AUTH'),
+            'username'  => env('DB_USERNAME'),
+            'password'  => env('DB_PASSWORD'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -28,12 +28,12 @@ return [
 
         # World of WarCraft Client - Character Base
         'char' => [
-            'driver'    => env('DB_CONNECTION_CHAR'),
-            'host'      => env('DB_HOST_CHAR'),
-            'port'      => env('DB_PORT_CHAR'),
+            'driver'    => env('DB_CONNECTION_DRIVER'),
+            'host'      => env('DB_CONNECTION_HOST'),
+            'port'      => env('DB_PORT'),
             'database'  => env('DB_DATABASE_CHAR'),
-            'username'  => env('DB_USERNAME_CHAR'),
-            'password'  => env('DB_PASSWORD_CHAR'),
+            'username'  => env('DB_USERNAME'),
+            'password'  => env('DB_PASSWORD'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',

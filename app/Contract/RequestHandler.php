@@ -23,10 +23,10 @@ interface RequestHandler
 
     /**
      * Return data
-     * @param $type
+     * @param $value
      * @param array $option
      * @return JsonResponse
      */
-    public function make($type, array $option): object;
+    public function make($value, array $option): object;
 
 }

@@ -10,36 +10,19 @@ trait CharacterParsing
      * name Fraction
      * @var array
      */
-    protected $faction = [
-        1 => ['name' => 'Орда'],
-        2 => ['name' => 'Альянс'],
-    ];
+    protected $faction = [1, 2];
 
     /**
-     * name race Horde
+     * ID race Horde
      * @var array
      */
-    protected $raceHorde = [
-        2 => ['name' => 'Орк'],
-        5 => ['name' => 'Нежить'],
-        6 => ['name' => 'Таурен'],
-        8 => ['name' => 'Тролль'],
-        9 => ['name' => 'Гоблин'],
-        10 => ['name' => 'Эльф крови']
-    ];
+    protected $raceHorde = [2, 5, 6, 8, 9, 10];
 
     /**
-     * Name race Alliance
+     * ID race Alliance
      * @var array
      */
-    protected $raceAlliance = [
-        1 => ['name' => 'Человек'],
-        3 => ['name' => 'Дворф'],
-        4 => ['name' => 'Ночной эльф'],
-        7 => ['name' => 'Гном'],
-        11 => ['name' => 'Дреней'],
-        22 => ['name' => 'Ворген']
-    ];
+    protected $raceAlliance = [1, 3, 4, 7, 11, 22];
 
 
     /**

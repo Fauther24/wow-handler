@@ -40,7 +40,7 @@ class OnlineWorldController extends Controller implements RequestHandler
             'alliance' => []
         ];
 
-        /** @var  $item Collection */
+        /** @var  Collection $item */
         foreach ($all as $item) {
             if ( array_key_exists($item->race, $this->getRaceHorde()) ) {
                 array_push($data['horde'], $item);
