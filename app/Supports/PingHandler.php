@@ -5,6 +5,7 @@ namespace App\Supports;
 
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 
 class PingHandler
 {
@@ -25,21 +26,16 @@ class PingHandler
         $this->port = getenv('DB_PORT');
     }
 
-    public function ping()
+    /**
+     * @return JsonResponse
+     */
+    public function ping(): JsonResponse
     {
         try {
             $connect = fsockopen($this->logon, $this->port, $errno, $errstr, 2);
-            return !$connect ?
-                $this->givePayload('error', [
-                    'message' => 'No connection',
-                    'response' => $errno . ': ' .$errstr
-                ], 417) :
-                $this->givePayload('success', 'Connected.');
+            return $connect ? response()->json(['connected' => true]) : response()->json(['connected' => false]);
         } catch (\Exception $exception) {
-            return $this->givePayload('error', [
-                'message' => 'No connection',
-                'response' => $exception->getMessage()
-            ], 417);
+            return response()->json(['connected' => false]);
         }
 
     }

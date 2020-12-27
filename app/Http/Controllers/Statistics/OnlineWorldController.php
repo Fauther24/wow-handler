@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Statistics;
 
 
 use App\Contract\RequestHandler;
+use App\Http\Resources\Statistics\OnlineWorldList;
 use App\Supports\CharacterParsing;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -52,6 +53,6 @@ class OnlineWorldController extends Controller implements RequestHandler
         $data['horde'] = round( (count($data['horde']) / $data['all']) * 100 );
         $data['alliance'] = round( (count($data['alliance']) / $data['all']) * 100 );
 
-        return response()->json(['payload' => $data]);
+        return new OnlineWorldList($data);
     }
 }
