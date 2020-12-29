@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Arena;
 
 use App\Contract\RequestHandler;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Arena\ArenaTeamList;
 use Illuminate\Http\Request;
 
 class ArenaTeamController extends Controller implements RequestHandler
@@ -21,14 +22,14 @@ class ArenaTeamController extends Controller implements RequestHandler
      */
     public function handler(Request $request)
     {
-        if (!$request->has('type')) {
+        if (! $request->has('type')) {
             return response()->json([
                 'status' => RequestHandler::STATUSES['ERROR'],
                 'message' => 'Arena type is absent'
             ], 404);
         }
 
-        if( !in_array($request->input('type'), $this->types) ) {
+        if (! in_array($request->input('type'), $this->types) ) {
             return response()->json([
                 'status' => RequestHandler::STATUSES['ERROR'],
                 'message' => 'Arena type undefined'
@@ -52,7 +53,7 @@ class ArenaTeamController extends Controller implements RequestHandler
             ->orderByDesc('rating')
             ->get();
 
-        return $this->givePayload('payload', $data);
+        return new ArenaTeamList($data);
     }
 
 }

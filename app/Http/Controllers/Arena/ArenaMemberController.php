@@ -7,6 +7,8 @@ namespace App\Http\Controllers\Arena;
 
 use App\Contract\RequestHandler;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Arena\ArenaMemberList;
+use App\Http\Resources\Arena\ArenaTeamList;
 use App\Supports\ResponseJson;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -49,30 +51,27 @@ class ArenaMemberController extends Controller implements RequestHandler
      */
     public function make($type, $option): object
     {
-        return $type === 'top' ?
-            $this->dataTopMember() :
-            $this->dataTeamMember($option) ;
+        return $this->dataTopMember($type);
     }
 
     /**
      * Return top member
+     * @param int $type
      * @return JsonResponse
      */
-    public function dataTopMember() : object
+    public function dataTopMember(int $type) : object
     {
-        $data = Cache::remember('top_member_arena', 900, function () {
-            return $this->char->table('arena_team_member as member')
-                ->select(
-                    'member.*', 'team.name as team_name',
-                    'char.name as player_name', 'char.class as player_class', 'char.race as player_race'
-                )
-                ->join('arena_team as team', 'member.arenaTeamId', '=', 'team.ArenaTeamId')
-                ->join('characters as char', 'member.guid', '=', 'char.guid')
-                ->orderByDesc('member.personalRating')
-                ->get();
-        });
-
-        return $this->givePayload('payload', $data);
+        $data = $this->char->table('arena_team_member as member')
+            ->select(
+                'member.*', 'team.name as team_name', 'team.type as team_type',
+                'char.name as player_name', 'char.class as player_class', 'char.race as player_race'
+            )
+            ->join('arena_team as team', 'member.arenaTeamId', '=', 'team.ArenaTeamId')
+            ->join('characters as char', 'member.guid', '=', 'char.guid')
+            ->where('team.type', $type)
+            ->orderByDesc('member.personalRating')
+            ->get();
+        return new ArenaMemberList($data);
     }
 
     /**

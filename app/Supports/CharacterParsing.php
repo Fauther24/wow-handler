@@ -10,26 +10,28 @@ trait CharacterParsing
      * name Fraction
      * @var array
      */
-    protected $faction = [1, 2];
+    protected array $faction = [
+        'horde' => 1,
+        'alliance' => 2
+    ];
 
     /**
      * ID race Horde
      * @var array
      */
-    protected $raceHorde = [2, 5, 6, 8, 9, 10];
+    protected array $raceHorde = [2, 5, 6, 8, 9, 10];
 
     /**
      * ID race Alliance
      * @var array
      */
-    protected $raceAlliance = [1, 3, 4, 7, 11, 22];
-
+    protected array $raceAlliance = [1, 3, 4, 7, 11, 22];
 
     /**
      * Get race Horde
      * @return array
      */
-    public function getRaceHorde()
+    public function getRaceHorde(): array
     {
         return $this->raceHorde;
     }
@@ -38,7 +40,7 @@ trait CharacterParsing
      * Get race Alliance
      * @return array
      */
-    public function getRaceAlliance()
+    public function getRaceAlliance(): array
     {
         return $this->raceAlliance;
     }
@@ -50,7 +52,6 @@ trait CharacterParsing
      */
     public function fetchFractionOfRace($race)
     {
-        $races = array_merge($this->raceAlliance, $this->raceHorde);
-        return array_search($race, $races);
+        return in_array($race, $this->raceHorde) ? $this->faction['horde'] : $this->faction['alliance'];
     }
 }

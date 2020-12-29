@@ -18,8 +18,7 @@ $router->group(['middleware' => 'token'], function() use ($router) {
 
     /** Callback Arena Team handler */
     $router->group(['namespace' => 'Arena', 'prefix' => 'arena', 'as' => 'arena.'], function() use ($router) {
-        $router->post('team', ['as' => 'team', 'uses' => 'ArenaTeamController@handler']);
-        $router->post('member', ['as' => 'member', 'uses' => 'ArenaMemberController@handler']);
+        $router->post('player', ['as' => 'team', 'uses' => 'ArenaTopPlayerController@handler']);
     });
 
     /** Callback Arena Team handler */
