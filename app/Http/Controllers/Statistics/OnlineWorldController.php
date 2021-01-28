@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Statistics;
 
 use App\Contract\RequestHandler;
 use App\Http\Resources\Statistics\OnlineWorldList;
-use App\Supports\CharacterParsing;
+use App\Supports\Parsing\CharacterParsing;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;

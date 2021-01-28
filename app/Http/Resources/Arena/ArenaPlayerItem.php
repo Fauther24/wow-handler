@@ -4,7 +4,7 @@
 namespace App\Http\Resources\Arena;
 
 
-use App\Supports\CharacterParsing;
+use App\Supports\Parsing\CharacterParsing;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArenaPlayerItem extends JsonResource

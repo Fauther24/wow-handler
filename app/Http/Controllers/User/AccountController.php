@@ -77,7 +77,7 @@ class AccountController extends Controller implements RequestHandler
      * @param $email string
      * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
      */
-    public function getUserUid($email)
+    public function getUserUid(string $email)
     {
         /** @var Object_ $uid */
         $uid = $this->auth->table('account')

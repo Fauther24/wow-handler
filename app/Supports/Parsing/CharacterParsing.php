@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Supports;
+namespace App\Supports\Parsing;
 
 
 trait CharacterParsing

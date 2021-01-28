@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Supports;
+namespace App\Supports\Parsing;
 
 use Illuminate\Support\Facades\Cache;
 
@@ -15,10 +15,10 @@ trait ZoneParsing
      * @param int $id
      * @return string
      */
-    public function parserJson(int $id) : string
+    public function parserJsonZone(int $id) : string
     {
         $zones = file_get_contents(
-            realpath(__DIR__ . '/../../public/constants/wow-zone-names.json')
+            realpath(__DIR__ . '/../../../public/constants/wow-zone-names.json')
         );
 
         foreach (json_decode($zones, true) as $zoneID => $zoneName) {
@@ -37,7 +37,7 @@ trait ZoneParsing
     public function getNameZone(int $id): string
     {
         return Cache::has($this->cacheName . $id) ?
-            Cache::get($this->cacheName . $id) : $this->parserJson($id);
+            Cache::get($this->cacheName . $id) : $this->parserJsonZone($id);
     }
 
 }
