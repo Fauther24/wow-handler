@@ -11,8 +11,8 @@ trait CharacterParsing
      * @var array
      */
     protected array $faction = [
-        'horde' => 1,
-        'alliance' => 2
+        'horde' => 2,
+        'alliance' => 1
     ];
 
     /**
